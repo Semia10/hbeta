@@ -6,13 +6,19 @@ from keras.models import Sequential
 from keras.optimizers import Adam
 from keras.layers import Dense
 
-def build_model(input_size, output_size):
-    model = Sequential()
-    model.add(Dense(256, input_shape=(input_size,), activation='softmax'))
-    model.add(Dense(units=output_size , activation='softmax'))
-    model.compile(optimizer=Adam(), loss='mse')
 
-    return model
+class FinanceBot:
+    def __init__(self, o):
+        self.model = Sequential()
+        self.build_model(7, o)
+
+    def build_model(self, input_size, output_size):
+        # self.model = Sequential()
+        self.model.add(Dense(256, input_shape=(input_size,), activation='softmax'))
+        self.model.add(Dense(units=output_size , activation='softmax'))
+        self.model.compile(optimizer=Adam(), loss='mse')
+
+        return self.model
 
 
 
