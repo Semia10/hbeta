@@ -15,17 +15,14 @@ class FinanceBot:
     def build_model(self, input_size, output_size):
         # self.model = Sequential()
         self.model.add(Dense(256, input_shape=(input_size,), activation='softmax'))
-        self.model.add(Dense(units=output_size , activation='softmax'))
+        self.model.add(Dense(units=output_size, activation='softmax'))
         self.model.compile(optimizer=Adam(), loss='mse')
 
         return self.model
 
+    def train(self):
 
+        return self.model
 
-
-
-
-
-
-
-
+    def get_stats(self):
+        pass
