@@ -7,18 +7,18 @@ Institution: University of Alberta
 import kivy
 kivy.require('1.10.1')
 
-from enum import Enum
 from kivy.app import App
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.button import Button
-from kivy.uix.button import Label
-from kivy.uix.screenmanager import ScreenManager, Screen
-from kivy.properties import NumericProperty
-from kivy.uix.textinput import TextInput
 from kivy.lang import Builder
+from kivy.uix.button import Label
+from kivy.uix.button import Button
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.textinput import TextInput
+from kivy.properties import StringProperty
+from kivy.uix.screenmanager import ScreenManager, Screen
 
 Builder.load_string("""
 #:import RiseInTransition kivy.uix.screenmanager.RiseInTransition
+
 <Classify>:
     canvas:
         Rectangle:
@@ -34,21 +34,21 @@ Builder.load_string("""
         Button:
             text: 'Youth (18-35)'
             on_press:
-                group = 'youth'
+                root.clicked_button(self, self.active)
                 root.manager.transition = RiseInTransition()
                 root.manager.transition.duration = 0.75
                 root.manager.current = "budget_amount"
         Button:
             text: 'Adult (36-55)'
             on_press:
-                group = 'adult'
+                root.clicked_button(self, self.active)
                 root.manager.transition = RiseInTransition()
                 root.manager.transition.duration = 0.75
                 root.manager.current = "budget_amount"
         Button:
             text: 'Senior (56>)'
             on_press:
-                group = 'senior'
+                root.clicked_button(self, self.active)
                 root.manager.transition = RiseInTransition()
                 root.manager.transition.duration = 0.75
                 root.manager.current = "budget_amount"
@@ -74,7 +74,7 @@ Builder.load_string("""
             spacing: 10
             Button:
                 text: '7'
-                on_press: weekly.text += weekly.text
+                on_press: weekly.text += self.text
             Button:
                 text: '8'
                 on_press: weekly.text += self.text
@@ -114,7 +114,7 @@ Builder.load_string("""
             Button:
                 text: 'Enter'
                 on_press:
-                    user_budget = weekly.text
+                    app.wk_bgt = weekly.text
                     root.manager.transition = RiseInTransition()
                     root.manager.current = "daily_spend"
 <DailySpendings>
@@ -179,13 +179,13 @@ Builder.load_string("""
             Button:
                 text: 'Enter'
                 on_press:
-                    user_daily = daily.text
+                    app.daily_spnd = daily.text
                     root.manager.transition = RiseInTransition()
                     root.manager.current = "info_graph"
 <InfoGraph>
     BoxLayout:
         Label:
-            text: "Hello! We'll try our hardest to keep you within your stated budget."
+            id: getinfo
 """)
 
 class Classify(Screen):

@@ -49,7 +49,7 @@ class FinanceBot:
                     output_data.append(k)
             training_data.append([i, output_data])
         return training_data
-    
+
     def train_neural(self, training_data):
         sample = np.array([i[0] for i in training_data]).reshape(-1, len(training_data[0][0]))
         label = np.array([i[1] for i in training_data]).reshape(-1, len(training_data[0][1]))
@@ -67,4 +67,3 @@ if __name__ == "__main__":
     your_data = np.array([502, 5, 34, 183, 125, 43, 83, 29])
     predicted_data = bot.get_stats(your_data)
     print(predicted_data[0])
-
