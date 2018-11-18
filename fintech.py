@@ -67,3 +67,4 @@ if __name__ == "__main__":
     your_data = np.array([502, 5, 34, 183, 125, 43, 83, 29])
     predicted_data = bot.get_stats(your_data)
     print(predicted_data[0])
+
